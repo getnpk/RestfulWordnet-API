@@ -4,6 +4,7 @@
  */
 package com.getnpk.restfulwordnet;
 
+import com.getnpk.datamodel.WordPackage;
 import edu.mit.jwi.Dictionary;
 import edu.mit.jwi.IDictionary;
 import edu.mit.jwi.item.IIndexWord;
@@ -31,6 +32,7 @@ import javax.ws.rs.HeaderParam;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 /**
  *
@@ -71,7 +73,7 @@ public class WordnetBean {
     
     
     @GET
-    @Produces("text/html")
+    @Produces("application/json")
     @Path("/hyponym/{word}")
     public String getHypo(@PathParam("word") String word, @HeaderParam("host") String host){
         //System.out.println("SYS HOST: " + host);
@@ -79,17 +81,28 @@ public class WordnetBean {
     }
     
     @GET
-    @Produces("text/html")
+    @Produces("application/json")
     @Path("/synonym/{word}")
     public String getSyno(@PathParam("word") String word){
         return this.getSynonyms(word).toString();
     }
     
     @GET
-    @Produces("text/html")
+    @Produces("application/json")
     @Path("/hypernym/{word}")
     public String getHyp(@PathParam("word") String word){
         return this.getSynonyms(word).toString();
+    }
+    
+    @GET
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Path("/all/{word}")
+    public WordPackage getAll(@PathParam("word") String word){
+        WordPackage pack = new WordPackage();
+        pack.setHypernyms(this.getHypernyms(word));
+        pack.setHyponyms(this.getHyponyms(word));
+        pack.setSynonyms(this.getSynonyms(word));
+        return pack;
     }
     
     //Synonyms
