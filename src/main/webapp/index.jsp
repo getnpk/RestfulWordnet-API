@@ -18,10 +18,11 @@
             <li>SYNONYMS</li>
             <li>HYPERNYMS</li>
             <li>HYPONYMS</li>
-            http://localhost:8080/RestfulWordnet/api/wordnet/hyponym/education
         </ul>
             
         </p>
         
+        <p>http://localhost:8080/RestfulWordnet/api/wordnet/all/education</p>
+
     </body>
 </html>
