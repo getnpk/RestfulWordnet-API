@@ -14,10 +14,12 @@ import edu.mit.jwi.item.IWordID;
 import edu.mit.jwi.item.POS;
 import edu.mit.jwi.item.Pointer;
 import java.io.File;
+import java.io.FileInputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -51,8 +53,14 @@ public class WordnetBean {
 
     @PostConstruct
     public void init(){
+        
+        Properties prop = new Properties();
         try {
-            String path = "C:\\Users\\nitinkp\\Desktop\\dict";
+            System.out.println("SYS DIR: " + System.getProperty("user.dir"));
+            prop.load(this.getClass().getClassLoader().getResourceAsStream("config.properties"));
+            String dict_path = prop.getProperty("wordnet_dictionary_path");
+            
+            String path = dict_path;
             url = new URL("file", null , path );
             dict = new Dictionary (new File(path));
             dict.open();
