@@ -32,7 +32,9 @@ import javax.ws.rs.HeaderParam;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.CacheControl;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  *
@@ -97,12 +99,26 @@ public class WordnetBean {
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Path("/all/{word}")
-    public WordPackage getAll(@PathParam("word") String word){
-        WordPackage pack = new WordPackage();
-        pack.setHypernyms(this.getHypernyms(word));
-        pack.setHyponyms(this.getHyponyms(word));
-        pack.setSynonyms(this.getSynonyms(word));
-        return pack;
+    public Response getAll(@PathParam("word") String word){
+        
+        Response.ResponseBuilder builder;
+        WordPackage pack;
+        if (null == word)
+            builder = Response.status(Response.Status.NOT_FOUND);
+        else{
+            
+            pack = new WordPackage();
+            pack.setHypernyms(this.getHypernyms(word));
+            pack.setHyponyms(this.getHyponyms(word));
+            pack.setSynonyms(this.getSynonyms(word));
+            
+            builder = Response.ok(pack);
+            CacheControl cache = new CacheControl();
+            cache.setNoCache(true);
+            builder.cacheControl(cache);
+            
+        }
+        return builder.build();
     }
     
     //Synonyms
@@ -183,7 +199,6 @@ public class WordnetBean {
                     String item = i.next().getLemma ();
                     item = item.replace("_", " ").toLowerCase();
                     wordlist.add(item);
-                    //wordmap.put(item, confidence.get("hyp"));
             }
         }
         return wordlist;
