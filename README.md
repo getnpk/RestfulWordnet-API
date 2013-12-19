@@ -12,9 +12,10 @@ Custom Wordnet offering as RESTful API
   - application/json
   - application/xml
 
-* **Example**
+* **Usage Example**
 <blockquote>
-curl -X GET -H "Accept: application/xml" -H "Content-type: text/plain" http://localhost:8080/RestfulWordnet/api/wordnet/all/education
+curl -X GET -H "Accept: application/json" -H "Content-type: text/plain" http://localhost:8080/RestfulWordnet/api/wordnet/all/education
+
 
 <wordPackage>
 <synonyms>education</synonyms>
@@ -40,4 +41,5 @@ curl -X GET -H "Accept: application/xml" -H "Content-type: text/plain" http://lo
 <hyponyms>team teaching</hyponyms>
 <hyponyms>work-study program</hyponyms>
 </wordPackage>
+
 </blockquote>
