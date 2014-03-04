@@ -18,10 +18,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class WordPackage {
 
-    private ArrayList<String> hyponyms;
     private ArrayList<String> synonyms;
+    
     private ArrayList<String> hypernyms;
-
+    private ArrayList<String> hyponyms;
+    
     public ArrayList<String> getHyponyms() {
         return hyponyms;
     }
