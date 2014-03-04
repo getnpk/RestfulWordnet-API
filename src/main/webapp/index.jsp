@@ -22,7 +22,7 @@
             
         </p>
         
-        <p>http://localhost:8080/RestfulWordnet/api/wordnet/all/education</p>
+        <p>http://localhost:10000/RestfulWordnet/api/wordnet/all/education</p>
 
     </body>
 </html>
